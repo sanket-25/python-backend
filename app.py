@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
-import requests
+# import requests
 # from uuid import uuid4
 # from dotenv import load_dotenv
-# import os
+import os
 
 app = Flask(__name__)
 
