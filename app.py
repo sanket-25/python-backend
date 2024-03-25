@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import requests
 from uuid import uuid4
 from dotenv import load_dotenv
@@ -44,27 +44,7 @@ def chat_completion():
     except Exception as e:
         print(e)
         return 'Error calling OpenAI API', 500
-    
-# app = Flask(__name__)
 
-# @app.route('/')
-# def home():
-#     return 'Hello, world!'
-
-# @app.route("/sanket")
-# def mbsa():
-#     return render_template('index.html')
-
-# @app.route('/api/post', methods=['POST'])
-# def post_api():
-#     if request.method == 'POST':
-#         # Get the user's input from the request data
-#         user_input = request.json.get('input')
-        
-#         # Return the user's input in the response
-#         return jsonify({'input': user_input}), 200
-#     else:
-#         return jsonify({'message': 'Method not allowed'}), 405
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
