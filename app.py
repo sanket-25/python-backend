@@ -17,9 +17,9 @@ API_KEY = os.getenv('API_KEY')
 def home():
     return 'Hello, world!'
 
-# Define a route to handle POST requests for chat completion
-@app.route('/api/chat', methods=['POST'])
-def chat_completion():
+# # Define a route to handle POST requests for chat completion
+# @app.route('/api/chat', methods=['POST'])
+# def chat_completion():
     content = request.json.get('content')
 
     try:
