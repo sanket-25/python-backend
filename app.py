@@ -1,25 +1,70 @@
 from flask import Flask, request, jsonify, render_template
+import requests
+from uuid import uuid4
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Access API_KEY from environment variables
+API_KEY = os.getenv('API_KEY')
+
+# Define a route for the homepage
 @app.route('/')
 def home():
     return 'Hello, world!'
 
-@app.route("/sanket")
-def mbsa():
-    return render_template('index.html')
+# Define a route to handle POST requests for chat completion
+@app.route('/api/chat', methods=['POST'])
+def chat_completion():
+    content = request.json.get('content')
 
-@app.route('/api/post', methods=['POST'])
-def post_api():
-    if request.method == 'POST':
-        # Get the user's input from the request data
-        user_input = request.json.get('input')
+    try:
+        # Call the OpenAI API for chat completions
+        chat_completion_response = requests.post('https://api.openai.com/v1/chat/completions', json={
+            'model': 'gpt-3.5-turbo',
+            'messages': [
+                {'role': 'system', 'content': 'You are a helpful assistant.'},
+                {'role': 'user', 'content': content}
+            ]
+        }, headers={
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {API_KEY}'
+        })
+
+        chat_completion_data = chat_completion_response.json()
+
+        # Extract the assistant's response
+        assistant_response = chat_completion_data['choices'][0]['message']['content']
+
+        return jsonify({'responseChat': assistant_response}), 200
+    except Exception as e:
+        print(e)
+        return 'Error calling OpenAI API', 500
+    
+# app = Flask(__name__)
+
+# @app.route('/')
+# def home():
+#     return 'Hello, world!'
+
+# @app.route("/sanket")
+# def mbsa():
+#     return render_template('index.html')
+
+# @app.route('/api/post', methods=['POST'])
+# def post_api():
+#     if request.method == 'POST':
+#         # Get the user's input from the request data
+#         user_input = request.json.get('input')
         
-        # Return the user's input in the response
-        return jsonify({'input': user_input}), 200
-    else:
-        return jsonify({'message': 'Method not allowed'}), 405
+#         # Return the user's input in the response
+#         return jsonify({'input': user_input}), 200
+#     else:
+#         return jsonify({'message': 'Method not allowed'}), 405
 
 if __name__ == "__main__":
     app.run(debug=True)
