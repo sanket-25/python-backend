@@ -7,10 +7,10 @@ import os
 app = Flask(__name__)
 
 # Load environment variables from .env file
-load_dotenv()
+# load_dotenv()
 
-# Access API_KEY from environment variables
-API_KEY = os.getenv('API_KEY')
+# # Access API_KEY from environment variables
+# API_KEY = os.getenv('API_KEY')
 
 # Define a route for the homepage
 @app.route('/')
