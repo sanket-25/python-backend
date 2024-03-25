@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 # import requests
-# from uuid import uuid4
-# from dotenv import load_dotenv
+from uuid import uuid4
+from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
