@@ -6,7 +6,7 @@ app = Flask(__name__)
 def home():
     return 'Hello, world!'
 
-@app.route("/mbsa")
+@app.route("/sanket")
 def mbsa():
     return render_template('index.html')
 
