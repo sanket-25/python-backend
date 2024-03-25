@@ -1,25 +1,25 @@
 from flask import Flask, request, jsonify
 # import requests
 from uuid import uuid4
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 
 # Load environment variables from .env file
-load_dotenv()
+# load_dotenv()
 
 # # Access API_KEY from environment variables
-API_KEY = os.getenv('API_KEY')
+# API_KEY = os.getenv('API_KEY')
 
 # Define a route for the homepage
 @app.route('/')
 def home():
     return 'Hello, world!'
 
-# # Define a route to handle POST requests for chat completion
-# @app.route('/api/chat', methods=['POST'])
-# def chat_completion():
+# Define a route to handle POST requests for chat completion
+@app.route('/api/chat', methods=['POST'])
+def chat_completion():
     content = request.json.get('content')
 
     try:
